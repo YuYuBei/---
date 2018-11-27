@@ -11,6 +11,8 @@ Page({
    */
   data: {
     classic: {},
+    latest: true,
+    first: false,
   },
 
   /**
