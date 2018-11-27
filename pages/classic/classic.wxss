@@ -38,18 +38,22 @@
   */
   flex-wrap: wrap;
 }
-
-.chunk {
-  width: 160px;
-  height: 100px;
+/* 项目CSS */
+.header {
+  display: flex;
+  flex-direction: row;
+  height: 100rpx;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #f5f5f5;
+  border-bottom: 1px solid #f5f5f5;
 }
 
-.color1{
-  background-color: brown;
+.episode {
+  margin-left: 20rpx;
+  margin-top: 4rpx;
 }
-.color2{
-  background-color: aqua;
-}
-.color3{
-  background-color: blue;
+
+.like {
+  margin-top: 6rpx;
 }
