@@ -1,0 +1,55 @@
+/* 示例 */
+.flex-example {
+  height: 200px;
+  background-color: #999;
+  display: flex;
+  /* 
+      flex 布局内盒子的排列方式（确定主轴）
+        row 横向 
+        column 纵向 
+        row-reverse 横向颠倒 
+        column-reverse 纵向颠倒
+  */
+  flex-direction: row-reverse;
+  /* 
+    改变盒子（主轴）的对齐方式 
+      center 居中对齐 
+      flex-start 常规方向布局 
+      flex-end 逆常规方向布局 
+      space-around 所有元素的两侧距离均相等，相邻距离不会合并（等距分布） 
+      space-evenly 所有元素之间的间距相等（相邻距离会合并） 
+      space-between 最左的元素朝左对齐，最右的元素朝右对齐，除了头尾的元素外其他元素等距离分布（平均分布） 
+  */
+  justify-content: center;
+  /* 
+    改变盒子（交叉轴）的对齐方式
+      center 居中对齐
+      flex-start 常规方向布局 
+      flex-end 逆常规方向布局 
+      stretch 如果未设置高度/宽度，则子元素的高度/宽度填满整个容器
+      baseline 将第一个子元素内的文字的底部作为基线标准，所有元素的内文字按照这个基线对齐
+  */
+  align-items: flex-start;
+  /* 
+    调整item换行与否、如何换行
+      nowrap 不换行
+      wrap 换行（第一行在上方）
+      wrap-reverse 换行（第一行在下方）
+  */
+  flex-wrap: wrap;
+}
+
+.chunk {
+  width: 160px;
+  height: 100px;
+}
+
+.color1{
+  background-color: brown;
+}
+.color2{
+  background-color: aqua;
+}
+.color3{
+  background-color: blue;
+}

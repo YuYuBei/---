@@ -1,0 +1,25 @@
+  /* 
+    rpx 具有屏幕自适应功能 填入值与平时web上同等视觉效果时所填入值的大小相同（设计稿按照ip6为原型时）
+    px 填入值需要是平时web上同等视觉效果时填入值的一半
+  */
+.container {
+  display: inline-flex;
+  flex-direction: row;
+  padding: 10rpx;
+  width: 90rpx;
+}
+
+.container image{
+  width: 32rpx;
+  height: 28rpx;
+}
+
+.container text{
+  /* font-family: "PingFangSC-Thin"; */
+  font-size: 24rpx;
+  line-height: 24rpx;
+  color: #bbb;
+  position: relative;
+  bottom: 10rpx;
+  left: 6px;
+}

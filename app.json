@@ -1,0 +1,13 @@
+{
+  "pages": [
+    "pages/classic/classic",
+    "pages/index/index",
+    "pages/logs/logs"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "山水之间",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#fff"
+  }
+}
