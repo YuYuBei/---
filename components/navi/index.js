@@ -20,7 +20,7 @@ Component({
         this.triggerEvent('left', {}, {})
       }
     },
-
+    
     onRight: function() {
       if (!this.properties.first) {
         this.triggerEvent('right', {}, {})

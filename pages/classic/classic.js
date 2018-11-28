@@ -27,31 +27,34 @@ Page({
   },
 
   onNext: function(event){
-
+    this._updataClassic('next')
   },
 
   onPrevious: function(event) {
-    let index = this.data.classic.index;
-    classicModel.getPrevious(index, (res)=>{
-      this.setData({
-        classic: res,
-        latest: classicModel.isLatest(res.idnex),
-        first: classicModel.isFirst(res.index),
-      })
-    })
+    this._updataClassic('previous')
   },
-
+  
   onLike: function(event) {
     let behavior = event.detail.behavior
     let { id, type } = this.data.classic
     likeModel.like(behavior, id, type)
   },
-
+  
+  _updataClassic: function(nextOrPrevious){
+    let index = this.data.classic.index
+    classicModel.getClassic(index, nextOrPrevious, (res)=>{
+      this.setData({
+        classic: res,
+        latest: classicModel.isLatest(res.index),
+        first: classicModel.isFirst(res.index),
+      })
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    
   },
 
   /**
