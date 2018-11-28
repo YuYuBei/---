@@ -21,9 +21,30 @@ Page({
   onLoad: function (options) {
     classicModel.getLatest((res)=>{
       this.setData({
-        classic: res
+        classic: res,
       })  
     })
+  },
+
+  onNext: function(event){
+
+  },
+
+  onPrevious: function(event) {
+    let index = this.data.classic.index;
+    classicModel.getPrevious(index, (res)=>{
+      this.setData({
+        classic: res,
+        latest: classicModel.isLatest(res.idnex),
+        first: classicModel.isFirst(res.index),
+      })
+    })
+  },
+
+  onLike: function(event) {
+    let behavior = event.detail.behavior
+    let { id, type } = this.data.classic
+    likeModel.like(behavior, id, type)
   },
 
   /**
@@ -74,10 +95,4 @@ Page({
   onShareAppMessage: function () {
 
   },
-
-  onLike: function(event) {
-    let behavior = event.detail.behavior
-    let { id, type } = this.data.classic
-    likeModel.like(behavior, id, type)
-  }
 })

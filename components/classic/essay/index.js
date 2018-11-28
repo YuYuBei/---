@@ -1,4 +1,4 @@
-import { classicBeh } from "../classic-beh.js";
+import { classicBeh } from '../classic-beh.js'
 
 Component({
   /**
@@ -6,7 +6,7 @@ Component({
    */
   behaviors: [classicBeh],
   properties: {
-
+    
   },
 
   /**
