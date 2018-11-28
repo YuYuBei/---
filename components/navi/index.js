@@ -4,6 +4,7 @@ Component({
     title: String,
     first: Boolean,
     latest: Boolean,
+    toward: String,
   },
 
   data: {
@@ -14,6 +15,16 @@ Component({
   },
 
   methods: {
+    onLeft: function() {
+      if (!this.properties.latest) {
+        this.triggerEvent('left', {}, {})
+      }
+    },
 
+    onRight: function() {
+      if (!this.properties.first) {
+        this.triggerEvent('right', {}, {})
+      }
+    }
   }
 })
