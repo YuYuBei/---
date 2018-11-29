@@ -1,4 +1,6 @@
-import { config } from '../config.js'
+import {
+  config
+} from '../config.js'
 
 const tips = {
   1: '抱歉，出现了一个错误',
@@ -7,10 +9,16 @@ const tips = {
 }
 
 class HTTP {
-  request({ url, method, data, success }) {
-    if (!method) {
-      method = 'GET'
-    }
+  request({
+    url,
+    method = 'GET',
+    data = {}
+  }) {
+    return new Promise((resolve, reject) => {
+      this._request(url, resolve, reject, data, method)
+    })
+  }
+  _request(url, resolve, reject, method = 'GET', data = {}) {
     wx.request({
       url: config.api_base_url + url,
       method: method,
@@ -19,23 +27,25 @@ class HTTP {
         'content-type': 'application/json',
         'appkey': config.appkey,
       },
-      success: (res)=>{
-        let code = res.statusCode.toString();
+      success: (res) => {
+        const code = res.statusCode.toString();
         if (code.startsWith('2')) {
-          success && success(res.data)
+          resolve(res.data)
         } else {
-          let error_code = res.data.error_code
+          reject()
+          const error_code = res.data.error_code
           this._show_error(error_code)
         }
       },
-      fail: (err)=>{
+      fail: (err) => {
+        reject()
         this._show_error(1)
       }
     })
   }
 
   _show_error(error_code) {
-    if(!error_code) {
+    if (!error_code) {
       error_code = 1
     }
     const tip = tips[error_code]
@@ -45,8 +55,6 @@ class HTTP {
       duration: 2000,
     })
   }
-
-
 }
 
 export {
