@@ -45,8 +45,6 @@ class HTTP {
       duration: 2000,
     })
   }
-
-
 }
 
 export {

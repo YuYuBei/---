@@ -9,11 +9,7 @@ const tips = {
 }
 
 class HTTP {
-  request({
-    url,
-    method = 'GET',
-    data = {}
-  }) {
+  request({ url, method = 'GET', data = {} }) {
     return new Promise((resolve, reject) => {
       this._request(url, resolve, reject, data, method)
     })
