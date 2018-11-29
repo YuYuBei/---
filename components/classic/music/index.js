@@ -27,7 +27,7 @@ Component({
   },
 
   detached: function(event) {
-    console.log('music detached')
+    
   },
 
   /**
@@ -49,14 +49,12 @@ Component({
 
     _recoverStatus: function(){
       if (mMgr.paused) {
-        console.log('mMgr为暂停状态')
         this.setData({
           playing: false
         })
         return
       }
       if (mMgr.src === this.properties.src) {
-        console.log('mMgr.src 符合')
         this.setData({
           playing: true
         })
@@ -65,10 +63,7 @@ Component({
     },
 
     _monitorSwitch: function(){
-      mMgr.onPlay(()=>{
-        console.log('onPlay')
-        this._recoverStatus()
-      })
+      mMgr.onPlay(()=>this._recoverStatus())
       mMgr.onPause(()=>this._recoverStatus())
       mMgr.onStop(()=>this._recoverStatus())
       mMgr.onEnded(()=>this._recoverStatus())
