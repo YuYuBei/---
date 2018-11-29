@@ -1,8 +1,8 @@
 import { ClassicModel } from "../../models/classic"
 import { LikeModel } from "../../models/like"
 
-let classicModel = new ClassicModel()
-let likeModel = new LikeModel()
+const classicModel = new ClassicModel()
+const likeModel = new LikeModel()
 
 Page({
 
@@ -33,13 +33,13 @@ Page({
   },
   
   onLike: function(event) {
-    let behavior = event.detail.behavior
-    let { id, type } = this.data.classic
+    const behavior = event.detail.behavior
+    const { id, type } = this.data.classic
     likeModel.like(behavior, id, type)
   },
   
   _updataClassic: function(nextOrPrevious){
-    let index = this.data.classic.index
+    const index = this.data.classic.index
     classicModel.getClassic(index, nextOrPrevious, (res)=>{
       this._getLikeStatus(res.id, res.type)
       this.setData({

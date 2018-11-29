@@ -1,21 +1,23 @@
-import { HTTP } from '../utils/http.js'
-class ClassicModel extends HTTP{
+import {
+  HTTP
+} from '../utils/http.js'
+class ClassicModel extends HTTP {
   getLatest(sCallback) {
     this.request({
       url: 'classic/latest',
-      success: (res)=>{
+      success: (res) => {
         sCallback(res)
         this._setLatestIndex(res.index)
         wx.setStorageSync(this._getKey(res.index), res)
       }
     })
   }
-  
+
   getClassic(index, nextOrPrevious, sCallback) {
     /* 缓存中寻找 or 访问API */
     let key = nextOrPrevious === 'next' ? this._getKey(index + 1) : this._getKey(index - 1)
     let classic = wx.getStorageSync(key)
-    if(!classic){
+    if (!classic) {
       this.request({
         url: `classic/${index}/${nextOrPrevious}`,
         success: (res) => {
@@ -28,11 +30,11 @@ class ClassicModel extends HTTP{
     }
   }
 
-  isFirst(index){
+  isFirst(index) {
     return index === 1 ? true : false
   }
 
-  isLatest(index){
+  isLatest(index) {
     let latsetIndex = this._getLatestIndex();
     return latsetIndex !== index ? false : true
   }

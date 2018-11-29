@@ -1,4 +1,6 @@
-import { classicBeh } from "../classic-beh.js";
+import {
+  classicBeh
+} from "../classic-beh.js";
 
 const mMgr = wx.getBackgroundAudioManager()
 
@@ -21,20 +23,20 @@ Component({
     playSrc: 'images/player@play.png',
   },
 
-  attached: function(event) {
+  attached(event) {
     this._recoverStatus()
     this._monitorSwitch()
   },
 
-  detached: function(event) {
-    
+  detached(event) {
+
   },
 
   /**
    * 组件的方法列表
    */
   methods: {
-    onPlay: function() {
+    onPlay() {
       // 图片切换
       if (!this.data.playing) {
         mMgr.title = this.properties.title
@@ -47,7 +49,7 @@ Component({
       })
     },
 
-    _recoverStatus: function(){
+    _recoverStatus() {
       if (mMgr.paused) {
         this.setData({
           playing: false
@@ -62,11 +64,11 @@ Component({
       }
     },
 
-    _monitorSwitch: function(){
-      mMgr.onPlay(()=>this._recoverStatus())
-      mMgr.onPause(()=>this._recoverStatus())
-      mMgr.onStop(()=>this._recoverStatus())
-      mMgr.onEnded(()=>this._recoverStatus())
+    _monitorSwitch() {
+      mMgr.onPlay(() => this._recoverStatus())
+      mMgr.onPause(() => this._recoverStatus())
+      mMgr.onStop(() => this._recoverStatus())
+      mMgr.onEnded(() => this._recoverStatus())
     }
   }
 })
