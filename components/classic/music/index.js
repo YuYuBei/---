@@ -21,6 +21,15 @@ Component({
     playSrc: 'images/player@play.png',
   },
 
+  attached: function(event) {
+    this._recoverStatus()
+    this._monitorSwitch()
+  },
+
+  detached: function(event) {
+    console.log('music detached')
+  },
+
   /**
    * 组件的方法列表
    */
@@ -36,6 +45,33 @@ Component({
       this.setData({
         playing: !this.data.playing,
       })
+    },
+
+    _recoverStatus: function(){
+      if (mMgr.paused) {
+        console.log('mMgr为暂停状态')
+        this.setData({
+          playing: false
+        })
+        return
+      }
+      if (mMgr.src === this.properties.src) {
+        console.log('mMgr.src 符合')
+        this.setData({
+          playing: true
+        })
+        return
+      }
+    },
+
+    _monitorSwitch: function(){
+      mMgr.onPlay(()=>{
+        console.log('onPlay')
+        this._recoverStatus()
+      })
+      mMgr.onPause(()=>this._recoverStatus())
+      mMgr.onStop(()=>this._recoverStatus())
+      mMgr.onEnded(()=>this._recoverStatus())
     }
   }
 })
