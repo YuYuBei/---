@@ -6,17 +6,17 @@ const bookModel = new BookModel()
 
 Page({
 
-  /**
-   * 页面的初始数据
-   */
   data: {
-
+    books: []
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function (options) {
+    bookModel.getHotList()
+      .then(res => {
+        this.setData({
+          books: res,
+        })
+      })
     /* Promise 基础示例代码 */
     // const promise = new Promise((resolve, reject) => {
     //   wx.getSystemInfo({
@@ -55,6 +55,7 @@ Page({
     //     console.log(res)
     //     return bookModel.getMyBookCount()
     //   })
+    console.log(this.data.books)
   },
 
   /**
