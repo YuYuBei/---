@@ -1,5 +1,3 @@
-
-
 <view class="container">
   <view class="header">
     <view class="box">
@@ -10,7 +8,7 @@
   <view class="sub-container">
     <image class="head-img" src="/images/book/quality.png"/>
     <view class="books-container">
-      <block wx:for="{{books}}">
+      <block wx:key="id" wx:for="{{books}}">
         <v-book book="{{item}}"/>
       </block>
     </view>
