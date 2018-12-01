@@ -12,7 +12,7 @@
 		"autoAudits": false
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.4.0",
+	"libVersion": "2.4.1",
 	"appid": "wx7970298ce2cb89e3",
 	"projectname": "jiu-dao",
 	"debugOptions": {

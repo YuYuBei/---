@@ -63,10 +63,18 @@
   color: #aaa;
 }
 
-.comment-container > v-tag:nth-child(1) > view {
+/* .comment-container > v-tag:nth-child(1) > view {
   background-color: #fffbdd;
 }
 
 .comment-container > v-tag:nth-child(2) > view {
   background-color: #eefbff;
+} */
+
+.ex-tag1 {
+  background-color: #fffbdd !important;
+}
+
+.ex-tag2 {
+  background-color: #eefbff !important;
 }
