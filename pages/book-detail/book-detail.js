@@ -1,4 +1,6 @@
-import { BookModel } from '../../models/book.js'
+import {
+  BookModel
+} from '../../models/book.js'
 
 const bookModel = new BookModel()
 
@@ -20,29 +22,29 @@ Page({
     const comments = bookModel.getComments(bid)
     const likeStatus = bookModel.getLikeStatus(bid)
 
-    detail.then(res=>{
+    detail.then(res => this.setData({
       book: res
-    })
+    }))
 
-    comments.then(res=>{
-      comments: res
-    })
+    comments.then(res => this.setData({
+      comments: res.comments
+    }))
 
-    likeStatus.then(res=>{
-      likeStatus: res.like_status
-      likeCount: res.fav_nums
-    })
+    likeStatus.then(res => this.setData({
+      likeStatus: res.like_status,
+      likeCount: res.fav_nums,
+    }))
   },
 
   onReady: function (options) {
-
+    
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+
   },
 
   /**
