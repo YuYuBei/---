@@ -52,9 +52,16 @@
   flex-direction: row;
   flex-wrap: wrap;
 }
+
 .comment-container v-tag {
   margin-right: 15rpx;
   margin-bottom: 10rpx;
+}
+
+.content {
+  text-indent: 40px;
+  font-weight: 500;
+  color: #000;
 }
 
 .num {
