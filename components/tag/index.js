@@ -15,9 +15,14 @@ Component({
   },
   
   attached() {
-    console.log(this.properties.text)
+    // console.log(this.properties.text)
   },
 
   methods: {
+    onTap(event) {
+      this.triggerEvent('tapping', {
+        text: this.properties.text
+      }, {})
+    }
   }
 })

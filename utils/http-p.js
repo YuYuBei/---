@@ -11,7 +11,7 @@ const tips = {
 class HTTP {
   request({ url, method = 'GET', data = {} }) {
     return new Promise((resolve, reject) => {
-      this._request(url, resolve, reject, data, method)
+      this._request(url, resolve, reject, method, data)
     })
   }
   _request(url, resolve, reject, method = 'GET', data = {}) {

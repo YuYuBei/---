@@ -1,8 +1,12 @@
 import {
   BookModel
 } from '../../models/book.js'
+import {
+  LikeModel
+} from '../../models/like.js'
 
 const bookModel = new BookModel()
+const likeModel = new LikeModel()
 
 Page({
 
@@ -14,6 +18,7 @@ Page({
     book: null,
     likeStatus: false,
     likeCount: 0,
+    posting: false
   },
   /* 通过页面url传递参数时，参数都在options中存储 */
   onLoad: function (options) {
@@ -36,49 +41,48 @@ Page({
     }))
   },
 
-  onReady: function (options) {
-    
+  onLike(event) {
+    const like_or_canel = event.detail.behavior;
+    likeModel.like(like_or_canel, this.data.book.id, 400)
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
+  onFakePost(event) {
+    this.setData({
+      posting: !this.data.posting,
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
+  onPost(event) {
+    const comment = event.detail.text || event.detail.value
 
-  },
+    if (comment.length === 0) {
+      return
+    }
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
+    if (comment.length > 12) {
+      wx.showToast({
+        title: '短评最多12个字',
+        icon: 'none'
+      })
+      return
+    }
 
-  },
+    bookModel.postComment(this.data.book.id, comment)
+      .then(res => {
+        wx.showToast({
+          title: '+1',
+          icon: "none",
+        })
+        
+        this.data.comments.unshift({
+          content: comment,
+          nums: 1
+        })
 
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+        this.setData({
+          comments: this.data.comments,
+          posting: false,
+        })
+      })
   }
 })
