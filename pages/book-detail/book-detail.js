@@ -22,23 +22,38 @@ Page({
   },
   /* 通过页面url传递参数时，参数都在options中存储 */
   onLoad: function (options) {
+    wx.showLoading()
     const bid = options.bid
     const detail = bookModel.getDetail(bid)
     const comments = bookModel.getComments(bid)
     const likeStatus = bookModel.getLikeStatus(bid)
 
-    detail.then(res => this.setData({
-      book: res
-    }))
+    /* 三个请求按顺序发起，异步执行 */
+    Promise.all([detail, comments, likeStatus])
+      .then(res => {
+        this.setData({
+          book: res[0],
+          comments: res[1].comments,
+          likeStatus: res[2].like_status,
+          likeCount: res[2].fav_nums,
+        })
+        wx.hideLoading()
+      })
+    
+    // detail.then(res => {
+    //   this.setData({
+    //     book: res
+    //   })
+    // })
 
-    comments.then(res => this.setData({
-      comments: res.comments
-    }))
+    // comments.then(res => this.setData({
+    //   comments: res.comments
+    // }))
 
-    likeStatus.then(res => this.setData({
-      likeStatus: res.like_status,
-      likeCount: res.fav_nums,
-    }))
+    // likeStatus.then(res => this.setData({
+    //   likeStatus: res.like_status,
+    //   likeCount: res.fav_nums,
+    // }))
   },
 
   onLike(event) {
