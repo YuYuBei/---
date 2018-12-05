@@ -4,21 +4,29 @@ import {
 import {
   BookModel
 } from '../../models/book.js'
+import {
+  paginationBev
+} from '../behaviors/pagination.js'
 
 const keywordModel = new KeywordModel()
 const bookModel = new BookModel()
 
 Component({
+  behaviors: [paginationBev],
   properties: {
-
+    more: {
+      type: String,
+      observer: 'loadMore',
+    }
   },
 
   data: {
     historyWords: [],
     hotwords: [],
-    dataArray: [],
     searching: false,
     q: '',
+    loading: false,
+    loadingCenter: false,
   },
 
   attached() {
@@ -34,28 +42,88 @@ Component({
   },
 
   methods: {
-    onCancel() {
-      this.triggerEvent('cancel', {}, {})
+    loadMore() {
+      if (!this.data.q || this._isLocked()) {
+        return
+      }
+      /* 当wxml中不需要绑定loading的；话，可以直接更新 */
+      if (this.hasMore()) {
+        this._locked()
+        bookModel.search(this.getCurrentStart(), this.data.q).then(
+          res => {
+            this.setMoreData(res.books)
+            this._unLocked()
+          }, () => {
+            this._unLocked()
+          }
+        )
+      }
     },
 
-    onDelete() {
-      this.setData({
-        searching: false
-      })
+    onCancel() {
+      this.triggerEvent('cancel', {}, {})
+      this.initialize()
+    },
+
+    onDelete(event) {
+      this._closeResult()
+      this.initialize()
     },
 
     onConfirm(event) {
       /* 提前切换页面组件，提升用户体验 */
       const q = event.detail.value || event.detail.text
+      this.initialize()
+      this._showOrCloseLoadingCenter()
+      if (!!q) {
+        this._showResult()
+        this.setData({ q })
+        bookModel.search(0, q).then(res => {
+          this.setMoreData(res.books)
+          this.setTotal(res.total)
+          keywordModel.addToHistory(q)
+          this._showOrCloseLoadingCenter()
+        })
+      } else {
+        wx.showToast({
+          'title': '请输入符合规范的搜索内容',
+          'icon': 'none'
+        })
+      }
+    },
+
+    _showOrCloseLoadingCenter() {
+      this.setData({
+        loadingCenter: !this.data.loadingCenter
+      })
+    },
+
+    _showResult() {
       this.setData({
         searching: true,
-        q,
       })
-      bookModel.search(0, q).then(res => {
-        this.setData({
-          dataArray: res.books,
-        })
-        keywordModel.addToHistory(q)
+    },
+
+    _closeResult() {
+      this.setData({
+        searching: false,
+        q: '',
+      })
+    },
+    
+    _isLocked() {
+      return this.data.loading ? true : false
+    },
+
+    _locked() {
+      this.setData({
+        loading: true
+      })
+    },
+
+    _unLocked() {
+      this.setData({
+        loading: false
       })
     }
   }

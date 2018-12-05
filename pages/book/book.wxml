@@ -15,4 +15,4 @@
   </view>
 </view>
 
-<v-search bind:cancel="onSearching" wx:if="{{searching}}"/>
+<v-search more="{{more}}" bind:cancel="onSearching" wx:if="{{searching}}"/>

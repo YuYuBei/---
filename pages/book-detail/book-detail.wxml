@@ -8,7 +8,7 @@
   </view>
   <view class="sub-container">  
     <text class="headline">短评</text>
-    <text class="shadow" wx:if="{{comments===[]}}">还没有短评</text>
+    <text class="shadow" wx:if="{{comments.length === 0}}">还没有短评</text>
     <view class="comment-container">
       <block wx:key="content" wx:for="{{util.limit(comments, 15)}}">
         <v-tag tag-class="{{tool.highlight(index)}}" text="{{item.content}}">
@@ -53,7 +53,7 @@
 <!-- 评论框 -->
 <view class="posting-container" wx:if="{{posting}}">
   <view class="post-header">
-    <text wx:if="{{comments !== []}}">仅可点击标签+1</text>
+    <text wx:if="{{comments.length !== 0}}">仅可点击标签+1</text>
     <text wx:else>暂无短评</text>
     <text bind:tap="onFakePost" class="cancel">取消</text>
   </view>
