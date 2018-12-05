@@ -7,7 +7,8 @@ const bookModel = new BookModel()
 Page({
 
   data: {
-    books: []
+    books: [],
+    searching: false,
   },
 
   onLoad: function (options) {
@@ -55,5 +56,11 @@ Page({
     //     console.log(res)
     //     return bookModel.getMyBookCount()
     //   })
+  },
+
+  onSearching(event) {
+    this.setData({
+      searching: !this.data.searching,
+    })
   },
 })
