@@ -43,18 +43,18 @@ Component({
 
   methods: {
     loadMore() {
-      if (!this.data.q || this._isLocked()) {
+      if (!this.data.q || this.isLocked()) {
         return
       }
       /* 当wxml中不需要绑定loading的；话，可以直接更新 */
       if (this.hasMore()) {
-        this._locked()
+        this.locked()
         bookModel.search(this.getCurrentStart(), this.data.q).then(
           res => {
             this.setMoreData(res.books)
-            this._unLocked()
+            this.unLocked()
           }, () => {
-            this._unLocked()
+            this.unLocked()
           }
         )
       }
@@ -110,21 +110,5 @@ Component({
         q: '',
       })
     },
-    
-    _isLocked() {
-      return this.data.loading ? true : false
-    },
-
-    _locked() {
-      this.setData({
-        loading: true
-      })
-    },
-
-    _unLocked() {
-      this.setData({
-        loading: false
-      })
-    }
   }
 })

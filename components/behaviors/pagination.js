@@ -3,6 +3,7 @@ const paginationBev = Behavior({
     dataArray: [],
     total: null,
     noneResult: false,
+    loading: false,
   },
   
   methods: {
@@ -38,8 +39,25 @@ const paginationBev = Behavior({
       this.setData({
         dataArray: [],
         noneResult: false,
+        loading: false,
       })
       this.data.total = null
+    },
+
+    isLocked() {
+      return this.data.loading ? true : false
+    },
+
+    locked() {
+      this.setData({
+        loading: true,
+      })
+    },
+
+    unLocked() {
+      this.setData({
+        loading: false,
+      })
     }
   }
 })
