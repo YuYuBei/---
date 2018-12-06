@@ -137,14 +137,13 @@
 }
 
 .like {
-  margin-right: 30rpx;
-  margin-top: 10rpx;
+  margin-left: 30rpx;
 }
 
 .like-container {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
 }
 
@@ -195,4 +194,14 @@
   background-color: #f5f5f5;
   border-radius: 15px;
   padding-left: 25rpx;
+}
+
+.share-btn {
+  margin-right: 20rpx;
+  margin-top: 15rpx;
+}
+
+.share {
+  width: 40rpx;
+  height: 40rpx;
 }
