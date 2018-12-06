@@ -1,12 +1,19 @@
-// pages/my/my.js
+import { ClassicModel } from '../../models/classic.js'
+import { BookModel } from '../../models/book.js'
+
+const classicModel = new ClassicModel()
+const bookModel = new BookModel()
+
 Page({
   data: {
     authorized: false,
     userInfo: {},
+    bookCount: 0,
   },
 
   onLoad: function (options) {
     this.userAuthorized()
+    this.getMyBookCount()
   },
 
   userAuthorized() {
@@ -35,5 +42,20 @@ Page({
         authorized: true
       })
     }
-  }
+  },
+
+  onJumpToAbout(event) {
+    wx.navigateTo({
+      url: '/pages/about/about'
+    })
+  },
+
+  getMyBookCount() {
+    bookModel.getMyBookCount()
+      .then(res => {
+        this.setData({
+          bookCount: res.count
+        })
+      })
+  },
 })
